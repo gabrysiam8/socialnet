@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Social networks</title>
+
+    <link rel="stylesheet" th:href="@{~/webjars/bootstrap/4.4.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{~/main.css}"/>
+
+</head>
+<body>
+    <h1>All people</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Age</th>
+            <th scope="col"/>
+            <th scope="col"/>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="person: ${people}">
+            <td th:text="${person.firstName}" />
+            <td th:text="${person.lastName}" />
+            <td th:text="${person.email}" />
+            <td th:text="${person.age}" />
+            <td><button type="button" class="btn btn-info">Update</button></td>
+            <td><button type="button" class="btn btn-danger" th:onclick="'window.location.href=\'/person/delete/' + ${person.id} + '\''">Delete</button></td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/person">Submit another person</a>
+
+</body>
+</html>

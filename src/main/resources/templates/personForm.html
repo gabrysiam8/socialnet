@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Social networks</title>
+
+    <link rel="stylesheet" th:href="@{~/webjars/bootstrap/4.4.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{~/main.css}"/>
+
+</head>
+<body>
+    <h1>Add person</h1>
+    <form action="#" th:action="@{/person}" th:object="${person}" method="post" class="needs-validation" novalidate>
+        <div class="form-group">
+            <label for="firstName">First name</label>
+            <input type="text" th:field="*{firstName}" class="form-control" id="firstName" placeholder="Enter first name" required>
+            <div class="invalid-feedback">
+                Please enter first name.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last name</label>
+            <input type="text" th:field="*{lastName}" class="form-control" id="lastName" placeholder="Enter last name" required>
+            <div class="invalid-feedback">
+                Please enter last name.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">E-mail address</label>
+            <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="Enter e-mail" required>
+            <div class="invalid-feedback">
+                Please enter valid e-mail.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="text" th:field="*{age}" class="form-control" id="age" pattern="[1-9][0-9]{0,2}" placeholder="Enter age" required>
+            <div class="invalid-feedback">
+                Please enter valid age.
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <div th:if="${message} != ''" class="alert alert-danger" role="alert">
+        <span th:text="${message}"></span>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+</body>
+</html>
