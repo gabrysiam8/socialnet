@@ -29,7 +29,7 @@
     <thead>
     <tr>
         <th scope="col">Name</th>
-        <th scope="col">Size</th>
+        <th scope="col">City</th>
         <th scope="col"/>
         <th scope="col"/>
         <th scope="col"/>
@@ -38,12 +38,12 @@
     <tbody>
     <tr th:each="company: ${companies}">
         <td th:text="${company.name}" />
-        <td th:text="${company.size}" />
+        <td th:text="${company.city}" />
         <td>
             <button
                     type="button"
                     class="btn btn-success"
-                    th:onclick="'window.location.href=\'/position?company=' + ${company.id} + '\''">
+                    th:onclick="'window.location.href=\'/position?compId=' + ${company.id} + '\''">
                 Add job offer
             </button>
         </td>

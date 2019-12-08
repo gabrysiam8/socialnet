@@ -24,22 +24,13 @@
         </ul>
     </div>
 </nav>
-<h1>Add company</h1>
-<form action="#" th:action="@{/position}" th:object="${position}" method="post" class="needs-validation" novalidate>
+<h1>Add position</h1>
+<form action="#" th:action="@{/position(compId=${compId})}" th:object="${position}" method="post" class="needs-validation" novalidate>
     <div class="form-group">
         <label for="name">Position name</label>
         <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter position name" required>
         <div class="invalid-feedback">
             Please enter position name.
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="level">Experience level</label>
-        <div>
-            <select id="level">
-                <option th:each="level : ${levels}" th:value="${level}" th:text="${level}">
-                </option>
-            </select>
         </div>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>

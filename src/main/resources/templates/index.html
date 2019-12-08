@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" th:href="@{~/webjars/bootstrap/4.4.1/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{~/main.css}"/>
-
+    <script type="text/javascript" th:src="@{~/js/main.js}"></script>
 </head>
 
 <body>
@@ -26,16 +26,44 @@
             </ul>
         </div>
     </nav>
+    <h1>All job offers</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Company name</th>
+            <th scope="col">Position name</th>
+            <th scope="col"/>
+<!--            <th scope="col"/>-->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="job: ${jobs}">
+            <td th:text="${job.compName}" />
+            <td th:text="${job.posName}" />
+            <td>
+                <button
+                        th:compName="${job.compName}"
+                        th:posName="${job.posName}"
+                        type="button"
+                        class="btn btn-danger"
+                        th:onclick="redirect('/job/delete?compName='+this.getAttribute('compName')+'&posName='+this.getAttribute('posName'));">
+                    Delete
+                </button>
+            </td>
+<!--            <td>-->
+<!--                <button-->
+<!--                        type="button"-->
+<!--                        class="btn btn-danger"-->
+<!--                        th:onclick="'window.location.href=\'/company/delete/' + ${company.id} + '\''"-->
+<!--                >-->
+<!--                    Delete-->
+<!--                </button>-->
+<!--            </td>-->
+        </tr>
+        </tbody>
+    </table>
 
-    <main role="main" class="container">
 
-        <div>
-            <h2>
-                <span th:text="'Hello'"></span>
-            </h2>
-        </div>
-    </main>
 
-    <script type="text/javascript" th:src="@{webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
 </body>
 </html>
