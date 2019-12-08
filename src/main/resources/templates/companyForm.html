@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Job Network</title>
+
+    <link rel="stylesheet" th:href="@{~/webjars/bootstrap/4.4.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{~/main.css}"/>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="/">Job Network</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/person/all">Person list</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/company/all">Company list</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<h1>Add company</h1>
+<form action="#" th:action="@{/company}" th:object="${company}" method="post" class="needs-validation" novalidate>
+    <div class="form-group">
+        <label for="name">Company name</label>
+        <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter company name" required>
+        <div class="invalid-feedback">
+            Please enter company name.
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="size">Size</label>
+        <input type="text" th:field="*{size}" class="form-control" id="size" pattern="[0-9]{0,9}" placeholder="Enter employees number" required>
+        <div class="invalid-feedback">
+            Please enter valid number.
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<div th:if="${message} != ''" class="alert alert-danger" role="alert">
+    <span th:text="${message}"></span>
+</div>
+
+<script>
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+</body>
+</html>

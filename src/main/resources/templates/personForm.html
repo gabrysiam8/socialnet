@@ -4,13 +4,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Social networks</title>
+    <title>Job Network</title>
 
     <link rel="stylesheet" th:href="@{~/webjars/bootstrap/4.4.1/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{~/main.css}"/>
 
 </head>
 <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="/">Job Network</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/person/all">Person list</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/company/all">Company list</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <h1>Add person</h1>
     <form action="#" th:action="@{/person}" th:object="${person}" method="post" class="needs-validation" novalidate>
         <div class="form-group">

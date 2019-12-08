@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Job Network</title>
+
+    <link rel="stylesheet" th:href="@{~/webjars/bootstrap/4.4.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{~/main.css}"/>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="/">Job Network</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/person/all">Person list</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/company/all">Company list</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<h1>Add company</h1>
+<form action="#" th:action="@{/position}" th:object="${position}" method="post" class="needs-validation" novalidate>
+    <div class="form-group">
+        <label for="name">Position name</label>
+        <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter position name" required>
+        <div class="invalid-feedback">
+            Please enter position name.
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="level">Experience level</label>
+        <div>
+            <select id="level">
+                <option th:each="level : ${levels}" th:value="${level}" th:text="${level}">
+                </option>
+            </select>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script>
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+</body>
+</html>

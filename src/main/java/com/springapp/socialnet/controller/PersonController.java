@@ -56,7 +56,7 @@ public class PersonController {
             }
             model.addAttribute("people", people);
         }
-        return "result";
+        return "personList";
     }
 
     @PostMapping
