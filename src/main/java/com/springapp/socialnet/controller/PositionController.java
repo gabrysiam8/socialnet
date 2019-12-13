@@ -1,6 +1,5 @@
 package com.springapp.socialnet.controller;
 
-import com.springapp.socialnet.model.ExperienceLevel;
 import com.springapp.socialnet.model.Position;
 import com.springapp.socialnet.service.PositionService;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,6 @@ public class PositionController {
 
     @GetMapping
     public String positionForm(@RequestParam("compId") int compId, Model model) {
-        model.addAttribute("levels", ExperienceLevel.values());
         model.addAttribute("compId", compId);
         model.addAttribute("position", new Position());
         return "positionForm";

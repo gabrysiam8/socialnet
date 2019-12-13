@@ -4,66 +4,57 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Job Network</title>
+    <title>Neo4j App</title>
 
     <link rel="stylesheet" th:href="@{~/webjars/bootstrap/4.4.1/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{~/main.css}"/>
-    <script type="text/javascript" th:src="@{~/js/main.js}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.css">
 </head>
 
 <body>
+<div th:replace="fragments/header :: header"></div>
+<h1>People</h1>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">First name</th>
+        <th scope="col">Last name</th>
+        <th scope="col">E-mail</th>
+        <th scope="col">Company</th>
+        <th scope="col"/>
+        <th scope="col"/>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="person: ${people}">
+        <td th:text="${person.firstName}" />
+        <td th:text="${person.lastName}" />
+        <td th:text="${person.email}" />
+        <td th:text="${person.compName}" />
+        <td>
+            <button
+                    type="button"
+                    class="btn btn-info"
+                    th:onclick="|window.location.href='/person?id=${person.id}'|"
+            >
+                Update
+            </button>
+        </td>
+        <td>
+            <button
+                    type="button"
+                    class="btn btn-danger"
+                    th:onclick="|window.location.href='/person/delete/${person.id}'|"
+            >
+                Delete
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
 
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="/">Job Network</a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/person/all">Person list</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/company/all">Company list</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <h1>All job offers</h1>
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th scope="col">Company name</th>
-            <th scope="col">Position name</th>
-            <th scope="col"/>
-<!--            <th scope="col"/>-->
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="job: ${jobs}">
-            <td th:text="${job.compName}" />
-            <td th:text="${job.posName}" />
-            <td>
-                <button
-                        th:compName="${job.compName}"
-                        th:posName="${job.posName}"
-                        type="button"
-                        class="btn btn-danger"
-                        th:onclick="redirect('/job/delete?compName='+this.getAttribute('compName')+'&posName='+this.getAttribute('posName'));">
-                    Delete
-                </button>
-            </td>
-<!--            <td>-->
-<!--                <button-->
-<!--                        type="button"-->
-<!--                        class="btn btn-danger"-->
-<!--                        th:onclick="'window.location.href=\'/company/delete/' + ${company.id} + '\''"-->
-<!--                >-->
-<!--                    Delete-->
-<!--                </button>-->
-<!--            </td>-->
-        </tr>
-        </tbody>
-    </table>
-
-
+<button type="button" class="btn btn-primary" id="add-button" th:onclick="'window.location.href=\'/person\''">Add person</button>
 
 </body>
 </html>

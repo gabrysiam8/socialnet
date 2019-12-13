@@ -4,63 +4,65 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Job Network</title>
+    <title>Neo4j App</title>
 
     <link rel="stylesheet" th:href="@{~/webjars/bootstrap/4.4.1/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{~/main.css}"/>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.css">
 </head>
+
 <body>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="/">Job Network</a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/person/all">Person list</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/company/all">Company list</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-<h1>All companies</h1>
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th scope="col">Name</th>
-        <th scope="col">City</th>
-        <th scope="col"/>
-        <th scope="col"/>
-        <th scope="col"/>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="company: ${companies}">
-        <td th:text="${company.name}" />
-        <td th:text="${company.city}" />
-        <td>
-            <button
-                    type="button"
-                    class="btn btn-success"
-                    th:onclick="'window.location.href=\'/position?compId=' + ${company.id} + '\''">
-                Add job offer
-            </button>
-        </td>
-        <td><button type="button" class="btn btn-info">Update</button></td>
-        <td>
-            <button
-                    type="button"
-                    class="btn btn-danger"
-                    th:onclick="'window.location.href=\'/company/delete/' + ${company.id} + '\''"
-            >
-                Delete
-            </button>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<button type="button" class="btn btn-primary" th:onclick="'window.location.href=\'/company\''">Add company</button>
+    <div th:replace="fragments/header :: header"></div>
+
+    <h1>Companies</h1>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">City</th>
+            <th scope="col"/>
+            <th scope="col"/>
+            <th scope="col"/>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="company: ${companies}">
+            <td th:text="${company.name}" />
+            <td th:text="${company.city}" />
+            <td>
+                <button
+                        type="button"
+                        class="btn btn-success"
+                        th:onclick="|window.location.href='/position?compId=${company.id}'|"
+                >
+                    Add job offer
+                </button>
+            </td>
+            <td>
+                <button
+                        type="button"
+                        class="btn btn-info"
+                        th:onclick="|window.location.href='/company?id=${company.id}'|"
+                >
+                    Update
+                </button>
+            </td>
+            <td>
+                <button
+                        type="button"
+                        class="btn btn-danger"
+                        th:onclick="|window.location.href='/company/delete/${company.id}'|"
+                >
+                    Delete
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button type="button" class="btn btn-primary" id="add-button" th:onclick="'window.location.href=\'/company\''">Add company</button>
 
 </body>
 </html>

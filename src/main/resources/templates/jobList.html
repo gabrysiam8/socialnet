@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Neo4j App</title>
+
+    <link rel="stylesheet" th:href="@{~/webjars/bootstrap/4.4.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{~/main.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.css">
+
+    <script type="text/javascript" th:src="@{~/js/main.js}"></script>
+</head>
+
+<body>
+    <div th:replace="fragments/header :: header"></div>
+
+    <h1>Job offers</h1>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Company name</th>
+            <th scope="col">Position name</th>
+            <th scope="col"/>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="job: ${jobs}">
+            <td th:text="${job.compName}" />
+            <td th:text="${job.posName}" />
+            <td>
+                <button
+                        th:compName="${job.compName}"
+                        th:posName="${job.posName}"
+                        type="button"
+                        class="btn btn-danger"
+                        th:onclick="redirect('/job/delete?compName='+this.getAttribute('compName')+'&posName='+this.getAttribute('posName'));">
+                    Delete
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

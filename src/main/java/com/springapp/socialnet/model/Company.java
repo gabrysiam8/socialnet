@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Company {
 
-    private int id;
+    private Integer id;
 
     private String name;
 

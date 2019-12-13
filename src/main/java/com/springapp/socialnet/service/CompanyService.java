@@ -36,6 +36,22 @@ public class CompanyService {
         return companies;
     }
 
+    public Company getCompanyById(int id) {
+        Company c = new Company();
+        try (Session session = driver.session()) {
+            StatementResult result = session.run("MATCH(c:Company) WHERE ID(c)={id} RETURN ID(c) AS id, c",
+                Values.parameters("id", id));
+
+            Record record = result.list().get(0);
+            Node person = record.get("c").asNode();
+
+            c.setId(record.get("id").asInt());
+            c.setName(person.get("name").asString());
+            c.setCity(person.get("city").asString());
+        }
+        return c;
+    }
+
     public String addCompany(Company company) {
         try (Session session = driver.session()) {
             try (Transaction tx = session.beginTransaction()) {
@@ -49,6 +65,28 @@ public class CompanyService {
                 tx.run(statement, Values.parameters(
                         "name", company.getName(),
                         "city", company.getCity()));
+                tx.success();
+            }
+        }
+        return "";
+    }
+
+    public String editCompany(Company company) {
+        try (Session session = driver.session()) {
+            try (Transaction tx = session.beginTransaction()) {
+                StatementResult result = tx.run("MATCH(c:Company {name: {name}}) WHERE ID(c)<>{id} RETURN c.name",
+                    Values.parameters("name", company.getName(),
+                        "id", company.getId()));
+                if(!result.list().isEmpty()) {
+                    tx.failure();
+                    return "Company with this name already exists in a database";
+                }
+                String statement = "MATCH (c:Company) WHERE ID(c)={id} "
+                    + "SET c = { name: {name}, city: {city} } ";
+                tx.run(statement, Values.parameters(
+                    "id", company.getId(),
+                    "name", company.getName(),
+                    "city", company.getCity()));
                 tx.success();
             }
         }

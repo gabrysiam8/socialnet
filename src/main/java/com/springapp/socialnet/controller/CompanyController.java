@@ -2,13 +2,11 @@ package com.springapp.socialnet.controller;
 
 import com.springapp.socialnet.model.Company;
 import com.springapp.socialnet.service.CompanyService;
-import org.neo4j.driver.v1.*;
-import org.neo4j.driver.v1.types.Node;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Controller
@@ -22,8 +20,11 @@ public class CompanyController {
     }
 
     @GetMapping
-    public String companyForm(Model model) {
+    public String companyForm(@RequestParam(name = "id", required = false) Integer id, Model model) {
         model.addAttribute("company", new Company());
+        Optional.ofNullable(id)
+                .ifPresentOrElse(compId -> model.addAttribute("company", service.getCompanyById(compId)),
+                    () -> model.addAttribute("company", new Company()));
         model.addAttribute("message", "");
         return "companyForm";
     }
@@ -35,9 +36,19 @@ public class CompanyController {
         return "companyList";
     }
 
-    @PostMapping
+    @PostMapping("/new")
     public String addCompanyNode(@ModelAttribute Company company, Model model) {
         String msg = service.addCompany(company);
+        if(!msg.isEmpty()) {
+            model.addAttribute("message", msg);
+            return "companyForm";
+        }
+        return "redirect:/company/all";
+    }
+
+    @PostMapping("/edit")
+    public String editCompanyNode(@ModelAttribute Company company, Model model) {
+        String msg = service.editCompany(company);
         if(!msg.isEmpty()) {
             model.addAttribute("message", msg);
             return "companyForm";
