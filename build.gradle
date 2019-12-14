@@ -19,6 +19,7 @@ dependencies {
 	compile 'org.neo4j.driver:neo4j-java-driver-spring-boot-starter:1.7.5'
 	compile 'org.projectlombok:lombok:1.18.10'
 	annotationProcessor 'org.projectlombok:lombok'
+	testCompile 'org.neo4j.test:neo4j-harness:3.5.13'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
